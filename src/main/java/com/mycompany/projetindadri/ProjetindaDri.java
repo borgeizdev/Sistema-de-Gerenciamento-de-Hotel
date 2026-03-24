@@ -34,8 +34,10 @@ public class ProjetindaDri {
             opcao = entrada.nextInt();
             entrada.nextLine(); // Limpa buffer
 
+            switch (opcao) {
+
             // 1. RESERVAR QUARTO
-            if (opcao == 1) {
+            case 1:
                 int quarto;
                 while (true) {
                     System.out.print("Numero do Quarto (1-100): ");
@@ -61,46 +63,46 @@ public class ProjetindaDri {
                 } else {
                     System.out.println("Este quarto ja esta ocupado!");
                 }
-            }
+                break;
 
             // 2. CANCELAR RESERVA
-            else if (opcao == 2) {
-                int quarto;
+            case 2:
+                int quarto2;
                 while (true) {
                     System.out.print("Quarto para cancelar (1-100): ");
-                    quarto = entrada.nextInt();
-                    if (quarto >= 1 && quarto <= 100) break;
+                    quarto2 = entrada.nextInt();
+                    if (quarto2 >= 1 && quarto2 <= 100) break;
                     System.out.println("Quarto invalido!");
                 }
 
-                int i = quarto - 1;
-                if (statusQuarto[i]) {
-                    statusQuarto[i] = false;
-                    nomeHospede[i] = "";
-                    numReserva[i] = 0;
-                    diariasHospedagem[i] = 0;
-                    for (int j = 0; j < 4; j++) consumoFrigobar[i][j] = 0;
-                    System.out.println("Reserva do quarto " + quarto + " cancelada.");
+                int i2 = quarto2 - 1;
+                if (statusQuarto[i2]) {
+                    statusQuarto[i2] = false;
+                    nomeHospede[i2] = "";
+                    numReserva[i2] = 0;
+                    diariasHospedagem[i2] = 0;
+                    for (int j = 0; j < 4; j++) consumoFrigobar[i2][j] = 0;
+                    System.out.println("Reserva do quarto " + quarto2 + " cancelada.");
                 } else {
                     System.out.println("Este quarto ja esta vazio.");
                 }
-            }
+                break;
 
             // 3. LISTAR RESERVAS
-            else if (opcao == 3) {
+            case 3:
                 System.out.println("\n--- QUARTOS OCUPADOS ---");
                 boolean tem = false;
-                for (int i = 0; i < 100; i++) {
-                    if (statusQuarto[i]) {
-                        System.out.println("Quarto/Reserva: " + numReserva[i] + " | Hospede: " + nomeHospede[i]);
+                for (int i3 = 0; i3 < 100; i3++) {
+                    if (statusQuarto[i3]) {
+                        System.out.println("Quarto/Reserva: " + numReserva[i3] + " | Hospede: " + nomeHospede[i3]);
                         tem = true;
                     }
                 }
                 if (!tem) System.out.println("Reserva nao encontrada.");
-            }
+                break;
 
             // 4. CONSULTAR HÓSPEDE
-            else if (opcao == 4) {
+            case 4:
                 int q;
                 while (true) {
                     System.out.print("Digite o Numero do Quarto: ");
@@ -108,97 +110,98 @@ public class ProjetindaDri {
                     if (q >= 1 && q <= 100) break;
                     System.out.println("Quarto invalido!");
                 }
-                int i = q - 1;
-                if (statusQuarto[i]) {
-                    System.out.println("Hospede: " + nomeHospede[i]);
-                    System.out.println("Reserva: " + numReserva[i]);
-                    System.out.println("Diarias: " + diariasHospedagem[i]);
+                int i4 = q - 1;
+                if (statusQuarto[i4]) {
+                    System.out.println("Hospede: " + nomeHospede[i4]);
+                    System.out.println("Reserva: " + numReserva[i4]);
+                    System.out.println("Diarias: " + diariasHospedagem[i4]);
                 } else {
                     System.out.println("Quarto esta vazio.");
                 }
-            }
+                break;
 
             // 5. EDITAR HÓSPEDE
-            else if (opcao == 5) {
-                int q;
+            case 5:
+                int q5;
                 while (true) {
                     System.out.print("Numero do quarto para editar nome: ");
-                    q = entrada.nextInt();
-                    if (q >= 1 && q <= 100) break;
+                    q5 = entrada.nextInt();
+                    if (q5 >= 1 && q5 <= 100) break;
                     System.out.println("Invalido!");
                 }
-                int i = q - 1;
-                if (statusQuarto[i]) {
+                int i5 = q5 - 1;
+                if (statusQuarto[i5]) {
                     entrada.nextLine();
                     System.out.print("Novo Nome para o Hospede: ");
-                    nomeHospede[i] = entrada.nextLine();
+                    nomeHospede[i5] = entrada.nextLine();
                     System.out.println("Nome atualizado com sucesso!");
                 } else {
                     System.out.println("Este quarto esta vazio.");
                 }
-            }
+                break;
 
             // 6. REGISTRAR CONSUMO
-            else if (opcao == 6) {
-                int q;
+            case 6:
+                int q6;
                 while (true) {
                     System.out.print("Quarto que consumiu: ");
-                    q = entrada.nextInt();
-                    if (q >= 1 && q <= 100) break;
+                    q6 = entrada.nextInt();
+                    if (q6 >= 1 && q6 <= 100) break;
                     System.out.println("Invalido!");
                 }
-                int i = q - 1;
-                if (statusQuarto[i]) {
+                int i6 = q6 - 1;
+                if (statusQuarto[i6]) {
                     System.out.println("1-Agua | 2-Refri | 3-Suco | 4-Chocolate");
                     int prod = entrada.nextInt();
                     if (prod >= 1 && prod <= 4) {
                         System.out.print("Quantidade: ");
                         int qtd = entrada.nextInt();
                         if (qtd > 0) {
-                            consumoFrigobar[i][prod-1] += qtd;
+                            consumoFrigobar[i6][prod-1] += qtd;
                             System.out.println("Consumo registrado!");
                         }
                     }
                 } else {
                     System.out.println("Quarto vazio. Nao pode registrar consumo.");
                 }
-            }
+                break;
 
             // 7. CHECK-OUT
-            else if (opcao == 7) {
-                int q;
+            case 7:
+                int q7;
                 while (true) {
                     System.out.print("Quarto para Check-out: ");
-                    q = entrada.nextInt();
-                    if (q >= 1 && q <= 100) break;
+                    q7 = entrada.nextInt();
+                    if (q7 >= 1 && q7 <= 100) break;
                     System.out.println("Invalido!");
                 }
-                int i = q - 1;
-                if (statusQuarto[i]) {
+                int i7 = q7 - 1;
+                if (statusQuarto[i7]) {
                     double totalFrigobar = 0;
                     for (int j = 0; j < 4; j++) {
-                        totalFrigobar += consumoFrigobar[i][j] * preco[j];
+                        totalFrigobar += consumoFrigobar[i7][j] * preco[j];
                     }
-                    double totalHospedagem = diariasHospedagem[i] * valorDiaria;
+                    double totalHospedagem = diariasHospedagem[i7] * valorDiaria;
 
                     System.out.println("\n=================== EXTRATO ========================");
-                    System.out.println("Hospede: " + nomeHospede[i]);
-                    System.out.println("Quarto/Reserva: " + numReserva[i]);
+                    System.out.println("Hospede: " + nomeHospede[i7]);
+                    System.out.println("Quarto/Reserva: " + numReserva[i7]);
                     System.out.println("Total Diarias: R$ " + totalHospedagem);
                     System.out.println("Total Frigobar: R$ " + totalFrigobar);
                     System.out.println("TOTAL A PAGAR: R$ " + (totalHospedagem + totalFrigobar));
                     System.out.println("======================================================");
 
                     // Limpa tudo
-                    statusQuarto[i] = false;
-                    nomeHospede[i] = "";
-                    numReserva[i] = 0;
-                    diariasHospedagem[i] = 0;
-                    for (int j = 0; j < 4; j++) consumoFrigobar[i][j] = 0;
+                    statusQuarto[i7] = false;
+                    nomeHospede[i7] = "";
+                    numReserva[i7] = 0;
+                    diariasHospedagem[i7] = 0;
+                    for (int j = 0; j < 4; j++) consumoFrigobar[i7][j] = 0;
                     System.out.println("Check-out concluido!");
                 } else {
                     System.out.println("Quarto ja esta livre.");
                 }
+                break;
             }
 
         } while (opcao != 0);
