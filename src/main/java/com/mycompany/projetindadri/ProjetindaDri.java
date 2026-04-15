@@ -32,7 +32,7 @@ public class ProjetindaDri {
             System.out.print("Opcao: ");
             
             opcao = entrada.nextInt();
-            entrada.nextLine(); // Limpa buffer
+            entrada.nextLine();
 
             switch (opcao) {
 
@@ -48,14 +48,21 @@ public class ProjetindaDri {
 
                 int i = quarto - 1;
                 if (!statusQuarto[i]) {
-                    entrada.nextLine(); // Limpa buffer antes do nome
+                    entrada.nextLine();
                     System.out.print("Nome do Hospede: ");
                     nomeHospede[i] = entrada.nextLine();
                     
-                    System.out.print("Quantidade de Diarias: ");
-                    diariasHospedagem[i] = entrada.nextInt();
+                    // CORREÇÃO 2: validar diárias
+                    int d;
+                    do {
+                        System.out.print("Quantidade de Diarias: ");
+                        d = entrada.nextInt();
+                        if (d <= 0) {
+                            System.out.println("Digite um valor maior que 0!");
+                        }
+                    } while (d <= 0);
+                    diariasHospedagem[i] = d;
 
-                    // REGRA: Numero da reserva = Numero do quarto
                     numReserva[i] = quarto; 
                     statusQuarto[i] = true;
                     
@@ -98,7 +105,8 @@ public class ProjetindaDri {
                         tem = true;
                     }
                 }
-                if (!tem) System.out.println("Reserva nao encontrada.");
+                // CORREÇÃO 5
+                if (!tem) System.out.println("Nenhum quarto ocupado.");
                 break;
 
             // 4. CONSULTAR HÓSPEDE
@@ -153,13 +161,20 @@ public class ProjetindaDri {
                 if (statusQuarto[i6]) {
                     System.out.println("1-Agua | 2-Refri | 3-Suco | 4-Chocolate");
                     int prod = entrada.nextInt();
+
+                    // CORREÇÃO 3 e 4
                     if (prod >= 1 && prod <= 4) {
                         System.out.print("Quantidade: ");
                         int qtd = entrada.nextInt();
+
                         if (qtd > 0) {
                             consumoFrigobar[i6][prod-1] += qtd;
                             System.out.println("Consumo registrado!");
+                        } else {
+                            System.out.println("Quantidade invalida!");
                         }
+                    } else {
+                        System.out.println("Produto invalido!");
                     }
                 } else {
                     System.out.println("Quarto vazio. Nao pode registrar consumo.");
@@ -191,7 +206,6 @@ public class ProjetindaDri {
                     System.out.println("TOTAL A PAGAR: R$ " + (totalHospedagem + totalFrigobar));
                     System.out.println("======================================================");
 
-                    // Limpa tudo
                     statusQuarto[i7] = false;
                     nomeHospede[i7] = "";
                     numReserva[i7] = 0;
