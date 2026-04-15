@@ -1,4 +1,4 @@
-package com.mycompany.projetindadri;
+package com.mycompany.ProjetindaDri;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class ProjetindaDri {
         int[][] consumoFrigobar = new int[100][4];
         
         double[] preco = {4.0, 10.0, 7.0, 12.0}; 
-        double valorDiaria = 200.0;
+        double valorDiaria = 5000.0;
 
         int opcao;
 
@@ -79,13 +79,31 @@ public class ProjetindaDri {
                 }
 
                 int i2 = quarto2 - 1;
+
                 if (statusQuarto[i2] == true) {
+
+                    double totalFrigobar = 0;
+                    for (int j = 0; j < 4; j++) {
+                        totalFrigobar += consumoFrigobar[i2][j] * preco[j];
+                    }
+
+                    double totalHospedagem = diariasHospedagem[i2] * valorDiaria;
+
+                    System.out.println("\n=====================================");
+                    System.out.println("Hospede: " + nomeHospede[i2]);
+                    System.out.println("Quarto: " + numReserva[i2]);
+        
+                    System.out.println("Total Frigobar: R$ " + totalFrigobar);
+                    System.out.println("TOTAL A PAGAR: R$ " + (totalFrigobar));
+                    System.out.println("=====================================");
+
                     statusQuarto[i2] = false;
                     nomeHospede[i2] = "";
                     numReserva[i2] = 0;
                     diariasHospedagem[i2] = 0;
                     for (int j = 0; j < 4; j++) consumoFrigobar[i2][j] = 0;
-                    System.out.println("Reserva do quarto " + quarto2 + " cancelada.");
+
+                    System.out.println("Reserva cancelada com cobrança.");
                 } else {
                     System.out.println("Este quarto ja esta vazio.");
                 }
